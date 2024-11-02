@@ -14,6 +14,19 @@
  * @param {number} amount
  */
 function fillTank(customer, fuelPrice, amount = Infinity) {
+  if (typeof customer !== 'object'
+    || customer === null || Array.isArray(customer)) {
+    throw new Error('customer should be only an object');
+  }
+
+  if (isNaN(fuelPrice) || typeof fuelPrice !== 'number' || !fuelPrice) {
+    throw new Error('Fuel price should be a number and greater than 0');
+  }
+
+  if (isNaN(amount) || typeof amount !== 'number') {
+    throw new Error('amount should be only a number');
+  }
+
   const { vehicle } = customer;
   const freeSpace = vehicle.maxTankCapacity - vehicle.fuelRemains;
   const canBuy = customer.money / fuelPrice;
