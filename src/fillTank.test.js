@@ -153,4 +153,36 @@ describe('fillTank', () => {
     expect(() => fillTank(true, 10, 10)).toThrow();
     expect(() => fillTank('customer', 10, 10)).toThrow();
   });
+
+  it('should throw an error,'
+    + `if customer properties are unexisted or undefined`, () => {
+    expect(() => fillTank({
+      money: undefined,
+      vehicle: {
+        maxTankCapacity: 35,
+        fuelRemains: 15,
+      },
+    }, 10, 10)).toThrow();
+
+    expect(() => fillTank({
+      money: 2000,
+      vehicle: undefined,
+    }, 10, 10)).toThrow();
+
+    expect(() => fillTank({
+      money: 2000,
+      vehicle: {
+        maxTankCapacity: undefined,
+        fuelRemains: 15,
+      },
+    }, 10, 10)).toThrow();
+
+    expect(() => fillTank({
+      money: 2000,
+      vehicle: {
+        maxTankCapacity: 20,
+        fuelRemains: undefined,
+      },
+    }, 10, 10)).toThrow();
+  });
 });

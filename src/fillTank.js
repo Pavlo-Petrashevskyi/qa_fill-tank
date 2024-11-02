@@ -14,9 +14,18 @@
  * @param {number} amount
  */
 function fillTank(customer, fuelPrice, amount = Infinity) {
+  const { vehicle, money } = customer;
+
   if (typeof customer !== 'object'
     || customer === null || Array.isArray(customer)) {
     throw new Error('customer should be only an object');
+  }
+
+  if ((!money && money !== 0)
+    || (!vehicle.fuelRemains && vehicle.fuelRemains !== 0)
+    || (!vehicle.maxTankCapacity || vehicle.maxTankCapacity <= 0)
+    || !vehicle) {
+    throw new Error('customer should be with proper properties');
   }
 
   if (isNaN(fuelPrice) || typeof fuelPrice !== 'number' || !fuelPrice) {
@@ -27,9 +36,8 @@ function fillTank(customer, fuelPrice, amount = Infinity) {
     throw new Error('amount should be only a number');
   }
 
-  const { vehicle } = customer;
   const freeSpace = vehicle.maxTankCapacity - vehicle.fuelRemains;
-  const canBuy = customer.money / fuelPrice;
+  const canBuy = money / fuelPrice;
   const requiredAmount = Math.min(amount, freeSpace, canBuy);
   const roundedAmount = roundFuel(requiredAmount);
 
@@ -37,7 +45,7 @@ function fillTank(customer, fuelPrice, amount = Infinity) {
     return;
   }
 
-  customer.vehicle.fuelRemains += roundedAmount;
+  vehicle.fuelRemains += roundedAmount;
   customer.money -= roundPrice(roundedAmount * fuelPrice);
 }
 
