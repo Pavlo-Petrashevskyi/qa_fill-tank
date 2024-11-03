@@ -7,7 +7,7 @@ describe('fillTank', () => {
     expect(fillTank).toBeInstanceOf(Function);
   });
 
-  it('should fill tank fully with no amout', () => {
+  it('should fill tank fully with no amount', () => {
     const customer = {
       money: 3000,
       vehicle: {
@@ -22,7 +22,7 @@ describe('fillTank', () => {
     expect(customer.vehicle.fuelRemains).toBe(40);
   });
 
-  it('should fill tank fully with amout bigger than tank capacity', () => {
+  it('should fill tank fully with amount bigger than tank capacity', () => {
     const customer = {
       money: 3000,
       vehicle: {
@@ -67,7 +67,7 @@ describe('fillTank', () => {
     expect(customer.vehicle.fuelRemains).toBe(25);
   });
 
-  it('should round remaining money to hundreth part', () => {
+  it('should round remaining money to hundredth part', () => {
     const customer = {
       money: 3000,
       vehicle: {
@@ -172,7 +172,7 @@ describe('fillTank', () => {
     expect(() => fillTank({
       money: 2000,
       vehicle: {
-        maxTankCapacity: undefined,
+        maxTankCapacity: null,
         fuelRemains: 15,
       },
     }, 10, 10)).toThrow();

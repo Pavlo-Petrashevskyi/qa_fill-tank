@@ -16,23 +16,22 @@
 function fillTank(customer, fuelPrice, amount = Infinity) {
   const { vehicle, money } = customer;
 
-  if (typeof customer !== 'object'
-    || customer === null || Array.isArray(customer)) {
+  if (!(customer && typeof customer === 'object' && !Array.isArray(customer))) {
     throw new Error('customer should be only an object');
   }
 
-  if ((!money && money !== 0)
-    || (!vehicle.fuelRemains && vehicle.fuelRemains !== 0)
+  if ((money == null)
+    || (vehicle.fuelRemains == null)
     || (!vehicle.maxTankCapacity || vehicle.maxTankCapacity <= 0)
     || !vehicle) {
     throw new Error('customer should be with proper properties');
   }
 
-  if (isNaN(fuelPrice) || typeof fuelPrice !== 'number' || !fuelPrice) {
+  if (typeof fuelPrice !== 'number' || !fuelPrice) {
     throw new Error('Fuel price should be a number and greater than 0');
   }
 
-  if (isNaN(amount) || typeof amount !== 'number') {
+  if (typeof amount !== 'number' || isNaN(amount)) {
     throw new Error('amount should be only a number');
   }
 
